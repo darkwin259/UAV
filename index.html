@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ôn tập phiếu kiểm tra</title>
+<meta name="theme-color" content="#2f3b22">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ôn tập">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, formal training-exam tone; clear and quick to use.
+   IDEA: a printed exam sheet (phiếu kiểm tra) with a red grading stamp.
+   PICTURE: the working sheet itself: cards, answer bubbles, the score stamp.
+   COLOUR/TYPE: paper white + deep olive field, red stamp accent; Noto Serif titles, Be Vietnam Pro body.
+   LAYOUT: olive header band with mode tabs; one centred column of sheet content. */
+:root{color-scheme:light dark;--bg:light-dark(#eef0ea,#14170f);--paper:light-dark(#fff,#1d2117);--ink:light-dark(#1b1f16,#e8ebe0);--mut:light-dark(#5f6656,#a3ab96);--line:light-dark(#d9ddd0,#343a2b);--ol:#2f3b22;--ol2:light-dark(#e3e9d6,#2a3320);--red:#c8102e;--ok:#1f7a3a;--okbg:light-dark(#e4f3e8,#17301f);--badbg:light-dark(#fbe6e9,#3a1a1f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Be Vietnam Pro",system-ui,sans-serif;overflow-x:clip}
+header{background:var(--ol);color:#eef2e4;padding:22px max(5vw,16px) 0}
+.wrap{max-width:880px;margin:0 auto}
+h1{font:700 clamp(24px,4vw,34px)/1.1 "Noto Serif",Georgia,serif;margin:0 0 4px;text-wrap:balance}
+.sub{color:#c5cfb2;font-size:14px;margin:0 0 16px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{background:transparent;color:#dfe6cf;border:0;border-radius:10px 10px 0 0;padding:12px 20px;font:600 16px inherit;font-family:inherit;cursor:pointer;min-height:44px}
+.tabs button[aria-selected=true]{background:var(--bg);color:var(--ink)}
+main{padding:22px max(5vw,16px) 60px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+h2{font:700 20px/1.2 "Noto Serif",Georgia,serif;margin:0 0 12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:600 15px/1 inherit;font-family:inherit;border-radius:10px;padding:0 18px;min-height:44px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.pri{background:var(--ol);color:#fff;border-color:var(--ol)}
+.btn.red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,label.opt:focus-within{outline:3px solid #7d9b4a;outline-offset:2px}
+.topics{display:grid;gap:6px;max-height:300px;overflow:auto;padding-right:4px;margin:8px 0 12px}
+.topics label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14.5px}
+.topics label:hover{background:var(--ol2)}
+.topics input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--ol)}
+.f{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--mut)}
+input[type=text],input[type=number],select{font:16px inherit;font-family:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-height:44px}
+.chk{display:flex;gap:8px;align-items:center;font-size:15px;cursor:pointer;min-height:44px}
+.chk input{width:18px;height:18px;accent-color:var(--ol)}
+.tag{display:inline-block;font-size:13px;color:var(--mut);background:var(--ol2);border-radius:6px;padding:2px 8px}
+.qtext{font-weight:600;font-size:17px;margin:8px 0 12px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.bub{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--mut);display:grid;place-items:center;font-weight:700;font-size:14px}
+.opt.sel .bub{background:var(--ol);border-color:var(--ol);color:#fff}
+.opt.right{background:var(--okbg);border-color:var(--ok)}.opt.right .bub{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--badbg);border-color:var(--red)}.opt.wrong .bub{background:var(--red);border-color:var(--red);color:#fff}
+.done .opt{cursor:default}
+.flash{min-height:260px;display:flex;flex-direction:column}
+.ans{margin-top:auto;padding:14px;border-radius:10px;background:var(--okbg);border:1px solid var(--ok);font-weight:500}
+.ans b{color:var(--ok)}
+.hidden{display:none!important}
+.prog{height:6px;background:var(--ol2);border-radius:4px;overflow:hidden;margin:10px 0}.prog i{display:block;height:100%;background:var(--ol)}
+.sticky{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:12px max(5vw,16px);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.score{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.stamp{width:150px;height:150px;border:5px double var(--red);border-radius:50%;display:grid;place-items:center;color:var(--red);transform:rotate(-12deg);text-align:center;font-family:"Noto Serif",serif;flex:none;animation:st .35s ease-out}
+.stamp b{font-size:48px;line-height:1;display:block}.stamp small{font-size:13px;font-weight:700}
+@keyframes st{from{transform:rotate(-12deg) scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.stamp{animation:none}}
+.grid-nav{display:flex;flex-wrap:wrap;gap:6px}
+.grid-nav button{width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:600 14px inherit;font-family:inherit;cursor:pointer}
+.grid-nav button.a{background:var(--ol2);border-color:var(--ol)}
+.grid-nav button.r{background:var(--ok);color:#fff;border-color:var(--ok)}.grid-nav button.w{background:var(--red);color:#fff;border-color:var(--red)}
+.mut{color:var(--mut);font-size:14px}
+.code{font-family:"Noto Serif",serif;font-weight:700;color:var(--red)}
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:10px}
+.de{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:6px;min-height:44px}
+.de:hover{border-color:var(--ol);background:var(--ol2)}
+.de b{font-family:"Noto Serif",serif;font-size:17px}
+.de span{font-size:14px;color:var(--mut);line-height:1.4}
+.de em{font-style:normal;font-size:13px;font-weight:600;color:var(--ok)}
+.fb{padding:12px 14px;border-radius:10px;margin-top:4px;font-weight:500}
+.fb.ok{background:var(--okbg);border:1px solid var(--ok)}.fb.no{background:var(--badbg);border:1px solid var(--red)}
+details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+</style></head><body>
+<header><div class="wrap">
+<h1>Ôn tập phiếu kiểm tra</h1>
+<p class="sub">Tập huấn xây dựng, phát triển CTĐT và phương tiện không người lái · 13 chuyên đề · 39 câu</p>
+<div class="tabs" role="tablist">
+<button role="tab" id="t-prac" aria-selected="true">Luyện tập</button>
+<button role="tab" id="t-test" aria-selected="false">Kiểm tra</button>
+</div></div></header>
+<main><div class="wrap">
+
+<section id="pracSetup">
+<div class="card">
+<h2>Luyện tập — chọn đáp án, hiện đúng/sai ngay</h2>
+<div class="row" style="justify-content:space-between"><b>Chuyên đề</b>
+<div class="row"><button class="btn" data-all="p">Chọn tất cả</button><button class="btn" data-none="p">Bỏ chọn</button></div></div>
+<div class="topics" id="topicsP"></div>
+<div class="row">
+<label class="chk"><input type="checkbox" id="pQ"> Trộn thứ tự câu</label>
+<label class="chk"><input type="checkbox" id="pA" checked> Trộn thứ tự đáp án</label>
+</div>
+<div class="row" style="margin-top:8px"><button class="btn pri" id="startPrac">Bắt đầu luyện tập</button><button class="btn" id="viewAll">Xem toàn bộ đáp án</button><span class="mut" id="pMsg"></span></div>
+</div>
+</section>
+
+<section id="testSetup" class="hidden">
+<div class="card">
+<h2>Đề ngẫu nhiên từ các chuyên đề</h2>
+<p class="mut" style="margin:-4px 0 10px">Lấy câu ngẫu nhiên từ các chuyên đề, trộn câu hỏi và đáp án. Nộp bài mới chấm điểm.</p>
+<div class="row" style="align-items:flex-end">
+<label class="f">Số câu<select id="tNum"><option value="10">10 câu</option><option value="15">15 câu</option><option value="20" selected>20 câu</option><option value="30">30 câu</option><option value="0">Tất cả (39 câu)</option></select></label>
+<label class="f">Thời gian<select id="tTime"><option value="0">Không giới hạn</option><option value="10">10 phút</option><option value="15" selected>15 phút</option><option value="30">30 phút</option></select></label>
+<label class="f">Mã đề<input type="text" id="tCode" inputmode="numeric" maxlength="6" style="width:110px"></label>
+<button class="btn" id="newCode">Mã đề mới</button>
+</div>
+<label class="chk"><input type="checkbox" id="tEven" checked> Chia đều câu cho các chuyên đề</label>
+<details><summary>Giới hạn chuyên đề (<span id="tCount"></span>)</summary>
+<div class="row"><button class="btn" data-all="t">Chọn tất cả</button><button class="btn" data-none="t">Bỏ chọn</button></div>
+<div class="topics" id="topicsT"></div></details>
+<p class="mut" style="margin:4px 0 12px">Cùng mã đề luôn ra cùng một đề — đổi mã để có đề mới.</p>
+<button class="btn pri" id="startRand">Tạo đề ngẫu nhiên &amp; làm bài</button> <span class="mut" id="tMsg"></span>
+</div>
+<div class="card">
+<h2>Kiểm tra từng chuyên đề</h2>
+<p class="mut" style="margin:-4px 0 12px">Mỗi đề là 3 câu của một chuyên đề, đáp án được trộn mỗi lần làm.</p>
+<div class="deck" id="deck"></div>
+</div>
+</section>
+
+<section id="prac" class="hidden"></section>
+<section id="test" class="hidden"></section>
+</div></main>
+
+<script>
+{
+const RAW=[{"n":"Chuyên đề 1: Tổng quan chung về phương tiện không người lái.","q":[["Trục phát triển công nghệ quan trọng nhất hiện nay của phương tiện không người lái là gì?","Nâng cao mức độ tự động hóa, đi từ điều khiển từ xa hoàn toàn đến tự hành thực sự","Tăng kích thước và khối lượng cất cánh","Chuyển hoàn toàn sang động cơ phản lực","Giảm số lượng cảm biến trên khoang"],["Khái niệm “không người lái” và “tự hành” khác nhau như thế nào?","“Không người lái” mô tả vị trí con người trong không gian vật lý; “tự hành” mô tả vai trò con người trong vòng lặp quyết định","Hai khái niệm là một","“Tự hành” chỉ dùng cho phương tiện mặt nước","“Không người lái” luôn có mức tự động hóa cao hơn “tự hành”"],["Khi tín hiệu vệ tinh định vị yếu hoặc mất hẳn (trong rừng, đường hầm, dưới nước), phương tiện không người lái phải dựa vào giải pháp nào?","Dẫn đường quán tính kết hợp SLAM, thủy âm và các cảm biến bổ trợ","Ngừng hoạt động ngay lập tức","Tăng tốc độ để rút ngắn hành trình","Chỉ dựa vào quan sát bằng mắt của người vận hành"]]},{"n":"Chuyên đề 2: Một số quy định pháp luật về quản lý phương tiện bay không người lái.","q":[["Theo Luật Phòng không nhân dân, trước khi đưa tàu bay không người lái vào khai thác, sử dụng, người dân phải thực hiện việc gì?","Phải thực hiện đăng ký tàu bay không người lái theo quy định của pháp luật.","Chỉ cần mua phương tiện có nguồn gốc rõ ràng.","Chỉ cần thông báo cho chính quyền địa phương.","Không cần đăng ký nếu sử dụng để vui chơi, giải trí."],["Theo Điều 21 Nghị định 288/2025/NĐ-CP, trường hợp nào sau đây được miễn thủ tục cấp phép bay nếu đáp ứng đầy đủ điều kiện quy định?","UAV phục vụ vui chơi, giải trí có trọng lượng cất cánh tối đa dưới 0,25 kg, hoạt động ngoài khu vực cấm bay, hạn chế bay","Mọi UAV có trọng lượng dưới 25 kg","UAV có trọng lượng dưới 2 kg bay ở mọi khu vực","UAV phục vụ quay phim thương mại"],["Theo Điều 3 Thông tư 146/2025/TT-BQP, VLOS là hình thức điều khiển UAV như thế nào?","Người điều khiển luôn giữ được tầm nhìn trực tiếp với UAV trong suốt chuyến bay","Điều khiển hoàn toàn bằng hệ thống tự động","Điều khiển UAV bằng tín hiệu vệ tinh ngoài tầm nhìn","Điều khiển UAV thông qua người quan sát từ xa"]]},{"n":"Chuyên đề 3: Giải pháp phòng, chống phương tiện bay không người lái.","q":[["Theo tài liệu, những công nghệ nào có thể được sử dụng để phát hiện UAV?","Radar, camera quang học, cảm biến hồng ngoại, cảm biến vô tuyến và cảm biến âm thanh","Chỉ sử dụng camera thông thường","Chỉ sử dụng thiết bị đo nhiệt độ","Chỉ sử dụng điện thoại di động"],["Công nghệ trí tuệ nhân tạo (AI) có thể hỗ trợ việc phát hiện UAV như thế nào?","Phân tích hình ảnh, hỗ trợ nhận dạng và theo dõi UAV","Làm cho UAV tự động biến mất","Thay thế hoàn toàn mọi thiết bị quan sát","Bảo đảm phát hiện chính xác 100% mọi UAV"],["Theo tài liệu, biện pháp chế áp UAV bằng phương thức điện tử thường được gọi là gì?","Chế áp mềm","Chế áp bằng phương pháp cơ học","Chế áp bằng phương pháp quang học","Chế áp bằng phương pháp thủ công"]]},{"n":"Chuyên đề 4: Vòm phòng không bền vững.","q":[["Thành phần nào đóng vai trò nòng cốt trong việc tạo lập vòm phòng không nhiều tầng?","Lực lượng Phòng không","Lực lượng Không quân","Lực lượng Tác chiến Không gian mạng","Lực lượng Tác chiến điện tử"],["Một trong các đặc trưng cơ bản của Vòm phòng không bền vững?","Tính nhiều tầng, nhiều lớp","Tính liên thông","Tính thích ứng","Tính chắc chắn"],["Nội dung nào không thuộc phạm vi của vòm phòng không bên vững?","Là mô hình có phạm vi cố định","Là vòm phòng không liên hoàn trên từng khu vực, hướng chiến lược hoặc chiến trường","Duy trì khả năng tác chiến liên tục trong suốt quá trình đánh địch","Có phạm vi huy động lực lượng được xác định theo yêu cầu nhiệm vụ"]]},{"n":"Chuyên đề 5: Phương thức tác chiến phương tiện bay không người lái một số nước trên thế giới.","q":[["Chiến thuật tác chiến “bầy đàn” phương tiện bay không người lái được áp dụng nhằm mục đích chính nào?","Tạo hiệu suất chiến đấu cao, gây quá tải cho hệ thống phòng không đối phương","Giảm chi phí bảo dưỡng phương tiện","Thay thế hoàn toàn máy bay có người lái","Chỉ phục vụ nhiệm vụ tuyên truyền, rải truyền đơn"],["Phương thức phối hợp máy bay có người lái với phương tiện bay không người lái có ưu điểm nổi bật nào?","Phương tiện bay không người lái bay trước trinh sát, thu hút hỏa lực, chỉ thị mục tiêu để máy bay có người lái tiến công nhanh, chính xác, giảm thiệt hại cho phi công","Máy bay có người lái bay trước để bảo vệ phương tiện bay không người lái","Không cần trung tâm chỉ huy","Chỉ dùng được ban ngày"],["Khi máy bay ném bom chiến lược, máy bay chiến đấu chiến thuật hiệp đồng với phương tiện bay không người lái tiến công, có thể áp dụng phương thức nào?","Phân chia khu vực, mục tiêu hoặc luân phiên theo thời gian","Tất cả cùng đánh một mục tiêu một lúc","Phương tiện bay không người lái chỉ hoạt động sau khi máy bay có người lái rút về","Không cần hiệp đồng vì phương tiện bay không người lái tự hoạt động"]]},{"n":"Chuyên đề 6: Sử dụng phương tiện bay không người lái thực hiện một số nhiệm vụ trong chiến đấu.","q":[["Nội dung nào KHÔNG phải nhận định đúng về nhiệm vụ của phương tiện bay không người lái?","Phương tiện bay không người lái chuyển tiếp có thể thay thế hoàn toàn hệ thống thông tin liên lạc mặt đất","Phương tiện bay không người lái có thể làm nghi binh, buộc ra đa đối phương phát sóng","Phương tiện bay không người lái có thể tìm kiếm cứu nạn, quan trắc khu vực nguy hiểm","Phương tiện bay không người lái có thể trinh sát điện tử, gây nhiễu ra đa, dẫn đường"],["Lợi thế nổi bật nhất khi sử dụng PTBKNL trong nhiệm vụ rà phá bom, mìn, vật liệu nổ là gì?","Thực hiện từ xa, ở khoảng cách an toàn với người vận hành","Tốc độ bay cao hơn máy bay có người lái","Không cần trạm điều khiển mặt đất","Không chịu ảnh hưởng của thời tiết"],["Yêu cầu nào phù hợp nhất với kíp điều khiển PTBKNL khi thực hiện nhiệm vụ trinh sát đêm?","Khai thác cảm biến ảnh nhiệt, hồng ngoại; giữ bí mật, hạn chế phát xạ; nắm chắc quy trình xử trí khi mất liên kết, mất định vị","Bật toàn bộ đèn và phát xạ liên tục để dễ quan sát phương tiện","Chỉ dùng camera ngày độ phân giải cao","Bay độ cao thấp nhất có thể bất kể địa hình để nhìn rõ mục tiêu"]]},{"n":"Chuyên đề 7: Giới thiệu nội dung các văn bản quy phạm pháp luật và hướng dẫn của các cơ quan chức năng về xây dựng chương trình đào tạo và đề cương học phần.","q":[["Văn bản quy phạm pháp luật hiện hành nào quy định về chương trình đào tạo các trình độ của giáo dục đại học?","Thông tư 54/2026/TT-BGDĐT","Thông tư 53/2026/TT-BGDĐT","Thông tư 56/2026/TT-BGDĐT","Thông tư 74/2026/TT-BGDĐT"],["Theo quy định hiện hành của Bộ Giáo dục và Đào tạo về chương trình đào tạo các trình độ của giáo dục đại học, chương trình đào tạo trình độ đại học mới của một ngành mới trong lĩnh vực kỹ thuật do Học viện xây dựng sẽ thuộc thẩm quyền phê duyệt tổ chức thực hiện của?","Giám đốc Học viện","Bộ trưởng Bộ Giáo dục và Đào tạo","Bộ trưởng Bộ Quốc phòng","Cục trưởng Cục Quân huấn - Nhà trường"],["Theo Luật Giáo dục đại học 125/2025/QH15, mục tiêu đào tạo trình độ đại học bổ sung những năng lực mới nào sau đây?","Đổi mới sáng tạo và khởi nghiệp","Thực hành và nghiên cứu","Đổi mới sáng tạo và nghiên cứu","Thực hành và khởi nghiệp"]]},{"n":"Chuyên đề 8: Đảm bảo chất lượng mở và duy trì ngành đào tạo các trình độ của giáo dục đại học.","q":[["Theo quy định hiện hành của Bộ Giáo dục và Đào tạo về chương trình đào tạo các trình độ của giáo dục đại học, chuẩn đầu ra đối với trình độ đại học phải có yêu cầu về nội dung nào dưới đây?","Năng lực số, nội dung về trí tuệ nhân tạo, khả năng thích ứng và học tập suốt đời","Năng lực nghiên cứu độc lập","Năng lực ứng dụng và phát triển tri thức","Cả 3 phương án trên"],["Theo quy định hiện hành của Bộ Giáo dục và Đào tạo về chương trình đào tạo các trình độ của giáo dục đại học, yêu cầu về đội ngũ giảng viên đối với chương trình đào tạo trình độ thạc sĩ của một ngành kỹ thuật là?","Có giáo sư hoặc phó giáo sư và giảng viên toàn thời gian trực tiếp giảng dạy ít nhất 75% khối lượng học tập","Có 1 giáo sư và 5 tiến sĩ ngành phù hợp trở lên","Có 1 phó giáo sư và 8 tiến sĩ ngành phù hợp trở lên","Có giáo sư hoặc phó giáo sư và giảng viên toàn thời gian trực tiếp giảng dạy ít nhất 50% khối lượng học tập"],["Theo quy định hiện hành của Bộ Giáo dục và Đào tạo về chương trình đào tạo các trình độ của giáo dục đại học, chu kỳ tối thiểu để rà soát, đánh giá, cập nhật chương trình đào tạo theo quy định là?","Ít nhất sau mỗi 02 khóa có người học tốt nghiệp","2 năm","3 năm","5 năm"]]},{"n":"Chuyên đề 9: Triển khai chuẩn chương trình nhóm ngành quân sự gắn với xây dựng chương trình đào tạo.","q":[["Căn cứ Hướng dẫn số 3105/HD-QHNT ngày 23/04/2026 của Cục Quân huấn - Nhà trường, Chuẩn đầu ra của chương trình đào tạo trong các học viện, nhà trường Quân đội được cấu trúc thống nhất thành bao nhiêu nhóm chuẩn thành phần bắt buộc?","05 nhóm (Phẩm chất chính trị, đạo đức; Kiến thức; Kỹ năng; Mức độ tự chủ và trách nhiệm; Tiêu chuẩn sức khỏe)","06 nhóm (Phẩm chất chính trị, đạo đức; Kiến thức; Kỹ năng; Mức độ tự chủ và trách nhiệm; Năng lực số; Tiêu chuẩn sức khỏe)","03 nhóm (Kiến thức; Kỹ năng; Mức độ tự chủ và trách nhiệm)","04 nhóm (Phẩm chất chính trị, đạo đức; Kiến thức; Kỹ năng; Tiêu chuẩn sức khỏe)"],["Theo Thông tư số 02/2025/TT-BGDĐT được bắt buộc tích hợp vào chương trình đào tạo các học viện, nhà trường Quân đội, Khung năng lực số dành cho người học gồm bao nhiêu miền năng lực?","06 miền năng lực","04 miền năng lực","08 miền năng lực","05 miền năng lực"],["Theo tinh thần Nghị quyết số 71/TW của Bộ Chính trị về đột phá phát triển giáo dục và đào tạo, chỉ tiêu đặt ra đến năm 2030 về tỷ lệ sinh viên theo học các ngành Khoa học - Kỹ thuật - Công nghệ (STEM) là bao nhiêu?","Tối thiểu 35% sinh viên","Tối thiểu 50% sinh viên","Tối thiểu 30% sinh viên","Tối thiểu 24% sinh viên"]]},{"n":"Chuyên đề 10: Nâng cao chất lượng xây dựng và phát triển chương trình đào tạo, đề cương học phần đáp ứng chuẩn đầu ra.","q":[["Trong xây dựng và phát triển chương trình đào tạo theo chuẩn đầu ra tại nhà trường Quân đội, việc xác định chuẩn đầu ra của chương trình đào tạo cần xuất phát từ căn cứ cốt lõi nào sau đây?","Xuất phát từ yêu cầu nhiệm vụ, vị trí việc làm và năng lực thực tế mà người sĩ quan, kỹ sư quân sự cần thực hiện được sau khi tốt nghiệp","Xuất phát từ nội dung các giáo trình, tài liệu giảng dạy hiện có của các bộ môn","Xuất phát từ số lượng giảng viên và điều kiện cơ sở vật chất hiện có của từng Khoa, Viện","Xuất phát từ việc giữ nguyên danh mục các môn học truyền thống và chỉ bổ sung thêm tên chuẩn đầu ra vào hồ sơ"],["Khi biên soạn chuẩn đầu ra của chương trình đào tạo (PLO) và chuẩn đầu ra của học phần (CLO), nguyên tắc nào sau đây cần được tuân thủ để đảm bảo khả năng đo lường, đánh giá?","Mỗi chuẩn đầu ra chỉ phản ánh một năng lực cốt lõi (tách bạch giữa kiến thức và kỹ năng), bắt đầu bằng động từ hành động quan sát, đo lường được và gắn với đối tượng, bối cảnh thực hiện cùng tiêu chuẩn cần đạt","Sử dụng các động từ phản ánh trạng thái nhận thức chung như “hiểu”, “nắm được”, “nhận thức được” để bao quát được nhiều nội dung lý thuyết","Gộp chung cả yêu cầu về kiến thức lý thuyết và kỹ năng thực hành vào cùng một chuẩn đầu ra để rút gọn văn bản","Mỗi học phần trong chương trình đều phải gắn với tất cả các chuẩn đầu ra của chương trình đào tạo"],["Trong quá trình triển khai chương trình đào tạo, khi quản lý các học phần dùng chung cho nhiều ngành và khi phát hiện kết quả đánh giá một chuẩn đầu ra cuối khóa chưa đạt kỳ vọng, hướng xử lý nào sau đây thể hiện đúng nguyên lý liên kết hai chiều và cải tiến liên tục (PDCA)?","Với học phần dùng chung có cùng khối lượng và nội dung chuyên môn thì giữ thống nhất phần nội dung cốt lõi nhưng đồng bộ phần ánh xạ chuẩn đầu ra theo từng chương trình đào tạo; khi có chuẩn đầu ra cuối khóa chưa đạt kỳ vọng thì truy vết ngược về các học phần gắn ký hiệu đánh giá (A) của chuẩn đầu ra đó để điều chỉnh hoạt động dạy học, thực hành và công cụ đánh giá cho khóa sau","Với học phần dùng chung thì bỏ trống phần liên kết chuẩn đầu ra trong đề cương; khi có chuẩn đầu ra cuối khóa đạt thấp thì hạ mức chuẩn cần đạt để nâng tỷ lệ đạt trên báo cáo","Với học phần dùng chung thì mỗi ngành phải biên soạn lại toàn bộ nội dung chuyên môn khác nhau; khi có chuẩn đầu ra cuối khóa đạt thấp thì chuyển ký hiệu đánh giá (A) sang các môn học đại cương ở đầu khóa","Giữ nguyên đề cương học phần và phương pháp giảng dạy qua các khóa học vì chương trình đào tạo sau khi ban hành là văn bản cố định, không thực hiện điều chỉnh"]]},{"n":"Chuyên đề 11: Xây dựng đề cương học phần ngoại ngữ theo Khung năng lực ngoại ngữ dùng cho Việt Nam đối với các trình độ của giáo dục đại học.","q":[["Theo Khung năng lực ngoại ngữ dùng cho Việt Nam, chuẩn đầu ra ngoại ngữ đối với sinh viên đại học không chuyên ngữ thông thường là bậc mấy?","Bậc 3 (tương đương B1 theo Khung tham chiếu trình độ ngôn ngữ chung Châu Âu CEFR)","Bậc 2 (tương đương A2 theo Khung tham chiếu trình độ ngôn ngữ chung Châu Âu CEFR)","Bậc 5 (tương đương C1 theo Khung tham chiếu trình độ ngôn ngữ chung Châu Âu CEFR)","Bậc 4 (tương đương B2 theo Khung tham chiếu trình độ ngôn ngữ chung Châu Âu CEFR)"],["Khi xây dựng đề cương học phần ngoại ngữ theo định hướng chuẩn đầu ra, các kỹ năng ngôn ngữ nào cần được quan tâm tích hợp trong quá trình giảng dạy và đánh giá?","Tích hợp cả bốn kỹ năng Nghe, Nói, Đọc, Viết, gắn với kiến thức ngôn ngữ và khả năng giao tiếp","Chỉ tập trung vào kỹ năng Nghe và Nói","Chỉ tập trung vào kỹ năng Đọc và Viết","Tập trung chủ yếu vào Ngữ pháp và Từ vựng"],["Yêu cầu quan trọng nhất khi xây dựng ngân hàng đề thi ngoại ngữ nhằm đánh giá mức độ đạt chuẩn đầu ra là gì?","Nội dung và cấu trúc đề thi bám sát chuẩn đầu ra, bao quát các kỹ năng, bảo đảm tính giá trị, độ tin cậy và phù hợp với trình độ người học","Đề thi chủ yếu kiểm tra kiến thức ngữ pháp và từ vựng","Câu hỏi được xây dựng đa dạng nhưng không cần phân loại theo mức độ năng lực","Tăng số lượng câu hỏi để đánh giá toàn diện kiến thức của người học"]]},{"n":"Chuyên đề 12: Ứng dụng trí tuệ nhân tạo (AI) trong thiết kế, rà soát và đánh giá chương trình đào tạo, đề cương học phần theo chuẩn đầu ra.","q":[["Khi cần AI viết phần nhận xét đơn vị đúng văn phong báo cáo quen dùng của đơn vị, kỹ thuật phù hợp nhất là:","Cho ví dụ mẫu (Few-shot)","Suy nghĩ từng bước (Chain of thought)","Tự phản biện (Reflexion)","Viết prompt dài hơn"],["Chuẩn đầu ra “Thiết kế và phát triển các mô hình AI, học sâu và các kỹ thuật AI chuyên ngành” thuộc mức nào trong thang Bloom?","Sáng tạo (Create)","Vận dụng (Apply)","Phân tích (Analyze)","Đánh giá (Evaluate)"],["Khi dùng công cụ AI công cộng (ChatGPT, Gemini…) để soạn đề cương học phần, loại thông tin nào có thể đưa vào prompt?","Mô tả học phần đã ban hành công khai","Bảng điểm và hồ sơ cá nhân của sinh viên","Tài liệu đóng dấu mật của đơn vị","Kết quả nghiên cứu chưa công bố của khoa"]]},{"n":"Chuyên đề 13: Xây dựng đề cương học phần công nghệ thông tin, chuyển đổi số theo Khung năng lực số dùng cho người học đối với các trình độ của giáo dục đại học.","q":[["Năng lực số cần được mô tả trên ba trụ cột nào?","Kiến thức; kỹ năng; mức tự chủ và trách nhiệm","Máy tính; phần mềm; Internet","Tìm kiếm thông tin; giao tiếp; giải quyết vấn đề","Dữ liệu; nội dung số; trí tuệ nhân tạo"],["Học viên đào tạo sĩ quan cấp phân đội trình độ đại học cần đạt năng lực số tối thiểu ở bậc nào?","Bậc 4","Bậc 5","Bậc 6","Bậc 2"],["Mỗi học phần nên xây dựng bao nhiêu chuẩn đầu ra học phần (CLO)?","Từ 3 đến 5 CLO","Từ 1 đến 2 CLO","Từ 6 đến 8 CLO","Từ 9 đến 10 CLO"]]}];
+const ALL=[];RAW.forEach((t,ti)=>t.q.forEach((q,qi)=>ALL.push({id:ti+'-'+qi,ti,topic:t.n,q:q[0],opts:q.slice(1)})));
+const L='ABCD';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const allIdx=()=>RAW.map((_,i)=>i);
+const sel={p:new Set(store.get('ptk-p',allIdx())),t:new Set(store.get('ptk-t',allIdx()))};
+let best=store.get('ptk-best',{});
+function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const short=n=>n.replace(/^Chuyên đề (\d+):\s*/,'CĐ $1 · ').replace(/\.$/,'');
+const fmt=x=>(Math.round(x*10)/10).toString().replace('.',',');
+const smooth=()=>matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';
+
+/* topic pickers */
+function drawTopics(k){$('#topics'+k.toUpperCase()).innerHTML=RAW.map((t,i)=>`<label><input type="checkbox" data-k="${k}" data-i="${i}" ${sel[k].has(i)?'checked':''}><span>${esc(t.n)}</span></label>`).join('');if(k==='t')$('#tCount').textContent=`${sel.t.size}/13`}
+const save=k=>{store.set('ptk-'+k,[...sel[k]]);if(k==='t')$('#tCount').textContent=`${sel.t.size}/13`};
+document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.k||!t.closest('.topics'))return;const k=t.dataset.k,i=+t.dataset.i;t.checked?sel[k].add(i):sel[k].delete(i);save(k)});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-all],[data-none]');if(!a)return;const k=a.dataset.all||a.dataset.none;sel[k]=new Set(a.dataset.all?allIdx():[]);save(k);drawTopics(k)});
+
+/* tabs */
+let mode='prac',timer=null;
+function setMode(m){mode=m;clearInterval(timer);$('#t-prac').setAttribute('aria-selected',m==='prac');$('#t-test').setAttribute('aria-selected',m==='test');
+$('#pracSetup').classList.toggle('hidden',m!=='prac');$('#testSetup').classList.toggle('hidden',m!=='test');$('#prac').classList.add('hidden');$('#test').classList.add('hidden');if(m==='test')drawDeck();window.scrollTo(0,0)}
+$('#t-prac').onclick=()=>setMode('prac');$('#t-test').onclick=()=>setMode('test');
+const back='<button class="btn" data-act="back">← Quay lại</button>';
+document.addEventListener('click',e=>{if(e.target.closest('[data-act=back]'))setMode(mode)});
+const show=id=>{$('#pracSetup').classList.add('hidden');$('#testSetup').classList.add('hidden');$('#'+id).classList.remove('hidden');window.scrollTo(0,0)};
+
+/* ===== LUYỆN TẬP ===== */
+let pq=[],pi=0,pRes=[];
+function startPractice(list){pq=list.map(q=>{const order=$('#pA').checked?shuffle([0,1,2,3],Math.random):[0,1,2,3];return{q,order,correct:order.indexOf(0),pick:-1}});pi=0;show('prac');drawPrac()}
+$('#startPrac').onclick=()=>{const p=ALL.filter(q=>sel.p.has(q.ti));if(!p.length){$('#pMsg').textContent='Hãy chọn ít nhất một chuyên đề.';return}$('#pMsg').textContent='';startPractice($('#pQ').checked?shuffle(p,Math.random):p)};
+function drawPrac(){
+if(pi>=pq.length){const right=pq.filter(e=>e.pick===e.correct).length;const wrong=pq.filter(e=>e.pick!==e.correct);
+$('#prac').innerHTML=`<div class="row" style="margin-bottom:12px">${back}</div><div class="card score"><div class="stamp"><div><b>${right}/${pq.length}</b><small>CÂU ĐÚNG</small></div></div>
+<div><h2>Hoàn thành lượt luyện tập</h2><p style="margin:0 0 12px">Đúng ${right} câu · Sai ${wrong.length} câu</p><div class="row">${wrong.length?'<button class="btn pri" id="pWrong">Luyện lại câu sai</button>':''}<button class="btn" id="pAgain">Luyện lại từ đầu</button></div></div></div>`;
+const w=$('#pWrong');if(w)w.onclick=()=>startPractice(shuffle(wrong.map(e=>e.q),Math.random));$('#pAgain').onclick=()=>startPractice(pq.map(e=>e.q));return}
+const e=pq[pi],done=e.pick>=0,right=pq.filter(x=>x.pick>=0&&x.pick===x.correct).length,did=pq.filter(x=>x.pick>=0).length;
+$('#prac').innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:10px">${back}<span class="mut">Câu ${pi+1}/${pq.length} · Đúng ${right}/${did}</span></div>
+<div class="prog"><i style="width:${(pi+1)/pq.length*100}%"></i></div>
+<div class="card ${done?'done':''}"><span class="tag">${esc(short(e.q.topic))}</span><div class="qtext">${esc(e.q.q)}</div>
+${e.order.map((o,k)=>{let c='';if(done){if(k===e.correct)c='right';else if(k===e.pick)c='wrong'}return `<label class="opt ${c}"><input type="radio" name="pp" data-pk="${k}" ${done?'disabled':''}><span class="bub">${L[k]}</span><span>${esc(e.q.opts[o])}</span></label>`}).join('')}
+${done?(e.pick===e.correct?`<div class="fb ok">✓ Chính xác!</div>`:`<div class="fb no">✗ Chưa đúng. Đáp án đúng: <b>${L[e.correct]}. ${esc(e.q.opts[0])}</b></div>`):''}</div>
+<div class="row" style="justify-content:space-between"><button class="btn" id="pPrev" ${pi?'':'disabled'}>← Câu trước</button>
+<button class="btn ${done?'pri':''}" id="pNext">${pi<pq.length-1?(done?'Câu tiếp →':'Bỏ qua →'):'Xem kết quả'}</button></div>
+<p class="mut">Phím tắt: A/B/C/D hoặc 1–4 để chọn · Enter / → câu tiếp · ← câu trước</p>`;
+$('#pPrev').onclick=()=>{pi--;drawPrac()};$('#pNext').onclick=()=>{pi++;drawPrac()}}
+function pick(k){const e=pq[pi];if(!e||e.pick>=0)return;e.pick=k;drawPrac()}
+$('#prac').addEventListener('change',e=>{if(e.target.dataset.pk)pick(+e.target.dataset.pk)});
+document.addEventListener('keydown',e=>{if($('#prac').classList.contains('hidden')||e.target.matches('input[type=text],select')||pi>=pq.length)return;
+const k='abcd'.indexOf(e.key.toLowerCase()),n='1234'.indexOf(e.key);
+if(k>=0)pick(k);else if(n>=0)pick(n);else if(e.key==='Enter'||e.key==='ArrowRight'){e.preventDefault();pi++;drawPrac()}else if(e.key==='ArrowLeft'&&pi){pi--;drawPrac()}});
+$('#viewAll').onclick=()=>{const p=ALL.filter(q=>sel.p.has(q.ti));if(!p.length)return;show('prac');pq=[];pi=1;
+let html=`<div class="row" style="margin-bottom:12px">${back}</div>`,cur=-1;
+p.forEach((q,i)=>{if(q.ti!==cur){cur=q.ti;html+=`<h2 style="margin:22px 0 10px">${esc(RAW[q.ti].n)}</h2>`}
+html+=`<div class="card"><div class="qtext" style="margin-top:0">${i+1}. ${esc(q.q)}</div><div class="fb ok"><b>Đáp án:</b> ${esc(q.opts[0])}</div></div>`});
+$('#prac').innerHTML=html};
+
+/* ===== KIỂM TRA ===== */
+let exam=[],answers=[],submitted=false,endAt=0;
+function drawDeck(){$('#deck').innerHTML=RAW.map((t,i)=>{const b=best['t'+i];return `<button class="de" data-de="${i}"><b>Đề ${i+1}</b><span>${esc(t.n.replace(/^Chuyên đề \d+:\s*/,'').replace(/\.$/,''))}</span>${b!=null?`<em>Điểm cao nhất: ${fmt(b)}/10</em>`:''}</button>`}).join('')}
+$('#deck').addEventListener('click',e=>{const d=e.target.closest('[data-de]');if(!d)return;const i=+d.dataset.de;
+const r=Math.random;startExam(shuffle(ALL.filter(q=>q.ti===i),r),r,{label:`Đề ${i+1} · ${short(RAW[i].n)}`,key:'t'+i,mins:0})});
+const newCode=()=>{$('#tCode').value=String(100+Math.floor(Math.random()*900))};newCode();$('#newCode').onclick=newCode;
+$('#startRand').onclick=()=>{const tps=[...sel.t].sort((a,b)=>a-b);if(!tps.length){$('#tMsg').textContent='Hãy chọn ít nhất một chuyên đề.';return}$('#tMsg').textContent='';
+let code=$('#tCode').value.trim();if(!/^\d+$/.test(code)){newCode();code=$('#tCode').value}
+const r=rng(+code*2654435761);const p=ALL.filter(q=>sel.t.has(q.ti));let n=+$('#tNum').value||p.length;n=Math.min(n,p.length);let qs;
+if($('#tEven').checked){const by=tps.map(t=>shuffle(p.filter(q=>q.ti===t),r));const order=shuffle(tps.map((_,i)=>i),r);qs=[];
+let round=0;while(qs.length<n){for(const i of order){if(qs.length>=n)break;if(by[i][round])qs.push(by[i][round])}round++}qs=shuffle(qs,r)}
+else qs=shuffle(p,r).slice(0,n);
+startExam(qs,r,{label:`Đề ngẫu nhiên · Mã đề <span class="code">${esc(code)}</span>`,key:null,mins:+$('#tTime').value,regen:true})};
+function startExam(qs,r,meta){exam=qs.map(q=>{const order=shuffle([0,1,2,3],r);return{q,order,correct:order.indexOf(0)}});exam.meta=meta;
+answers=exam.map(()=>-1);submitted=false;clearInterval(timer);endAt=meta.mins?Date.now()+meta.mins*60000:0;show('test');drawExam();if(endAt)timer=setInterval(tick,1000)}
+function tick(){const s=Math.max(0,Math.round((endAt-Date.now())/1000));const el=$('#clock');if(el)el.textContent=`⏱ Còn ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;if(!s){clearInterval(timer);submit()}}
+function optCls(e,i,k){if(!submitted)return answers[i]===k?'sel':'';if(k===e.correct)return 'right';if(answers[i]===k)return 'wrong';return ''}
+function qHTML(e,i){return `<div class="card ${submitted?'done':''}" id="q${i}"><div class="row" style="justify-content:space-between"><b>Câu ${i+1}</b><span class="tag">${esc(short(e.q.topic))}</span></div>
+<div class="qtext">${esc(e.q.q)}</div>${e.order.map((o,k)=>`<label class="opt ${optCls(e,i,k)}"><input type="radio" name="r${i}" data-i="${i}" data-ek="${k}" ${answers[i]===k?'checked':''} ${submitted?'disabled':''}><span class="bub">${L[k]}</span><span>${esc(e.q.opts[o])}</span></label>`).join('')}
+${submitted&&answers[i]!==e.correct?`<div class="fb no">${answers[i]<0?'Bỏ trống. ':''}Đáp án đúng: <b>${L[e.correct]}</b></div>`:''}</div>`}
+function navHTML(){return exam.map((e,i)=>{let c='';if(submitted)c=answers[i]===e.correct?'r':'w';else if(answers[i]>=0)c='a';return `<button class="${c}" data-go="${i}">${i+1}</button>`}).join('')}
+function drawExam(){const m=exam.meta,done=answers.filter(a=>a>=0).length;
+$('#test').innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px">${back}<span>${m.label} · ${exam.length} câu</span></div>
+<div id="result"></div>
+<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><b>Phiếu trả lời</b><span class="mut" id="cnt">Đã làm ${done}/${exam.length}</span></div><div class="grid-nav" id="nav">${navHTML()}</div></div>
+<div id="qs">${exam.map(qHTML).join('')}</div>
+<div class="sticky"><span id="clock" class="mut">${endAt&&!submitted?'':submitted?'Đã nộp bài':'Không giới hạn thời gian'}</span>
+<div class="row">${submitted?`${answers.some((a,i)=>a!==exam[i].correct)?'<button class="btn" id="retryWrong">Làm lại câu sai</button>':''}<button class="btn pri" id="again">${m.regen?'Đề ngẫu nhiên mới':'Làm lại đề này'}</button>`:`<button class="btn red" id="submit">Nộp bài</button>`}</div></div>`;
+if(endAt&&!submitted)tick();
+if(submitted)drawResult();
+const s=$('#submit');if(s)s.onclick=()=>{const left=exam.length-answers.filter(a=>a>=0).length;if(left&&s.dataset.c!=='1'){s.dataset.c='1';s.textContent=`Còn ${left} câu chưa làm — bấm lần nữa để nộp`;return}submit()};
+const ag=$('#again');if(ag)ag.onclick=()=>{if(m.regen){newCode();$('#startRand').click()}else{const r=Math.random;startExam(shuffle(exam.map(e=>e.q),r),r,m)}};
+const rw=$('#retryWrong');if(rw)rw.onclick=()=>{const r=Math.random;startExam(shuffle(exam.filter((e,i)=>answers[i]!==e.correct).map(e=>e.q),r),r,{label:'Làm lại câu sai',key:null,mins:0})}}
+$('#test').addEventListener('change',e=>{const t=e.target;if(!t.dataset.ek)return;const i=+t.dataset.i;answers[i]=+t.dataset.ek;
+$('#q'+i).outerHTML=qHTML(exam[i],i);$('#nav').innerHTML=navHTML();$('#cnt').textContent=`Đã làm ${answers.filter(a=>a>=0).length}/${exam.length}`});
+$('#test').addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)$('#q'+g.dataset.go).scrollIntoView({behavior:smooth(),block:'center'})});
+function submit(){if(submitted)return;submitted=true;clearInterval(timer);
+const pts=exam.filter((e,i)=>answers[i]===e.correct).length/exam.length*10;const k=exam.meta.key;if(k&&(best[k]==null||pts>best[k])){best[k]=pts;store.set('ptk-best',best)}
+drawExam();window.scrollTo(0,0)}
+function drawResult(){const right=exam.filter((e,i)=>answers[i]===e.correct).length;const pts=right/exam.length*10;const skip=answers.filter(a=>a<0).length;
+$('#result').innerHTML=`<div class="card score"><div class="stamp"><div><b>${fmt(pts)}</b><small>ĐIỂM / 10</small></div></div>
+<div><h2>${pts>=8?'Rất tốt!':pts>=5?'Đạt':'Chưa đạt — ôn lại nhé'}</h2><p style="margin:0">Đúng <b>${right}</b>/${exam.length} câu · Sai ${exam.length-right-skip} · Bỏ trống ${skip}</p>
+<p class="mut" style="margin:6px 0 0">Đáp án đúng tô xanh, lựa chọn sai tô đỏ. Bấm số câu ở phiếu trả lời để xem lại.</p></div></div>`}
+
+drawTopics('p');drawTopics('t');
+}
+</script></body></html>
